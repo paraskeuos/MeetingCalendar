@@ -82,7 +82,7 @@ const Calendar = () => {
         setItems(tmp);
     }, []);
 
-    console.log(items);
+    //console.log(items);
 
     return (
         <>
@@ -102,19 +102,15 @@ const Calendar = () => {
                     <th>SAT</th>
                 </tr>
                {
-                items?.map((itemWeek, weekId) => {
+                items.map((itemWeek, weekId) => {
                     return (
                         <tr key={weekId}>
                             {
                                 itemWeek.map((item, itemId) => {
-                                    return (
-                                        <td key={itemId}>
-                                            <Day 
+                                    return <Day key={itemId}
                                                 dayIndex={item.day}
                                                 meetings={item.meetings}
-                                            />
-                                        </td>
-                                    );
+                                            />;
                                 })
                             }
                         </tr>
