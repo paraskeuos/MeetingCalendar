@@ -43,12 +43,30 @@ const Calendar = () => {
         const tmp = [[]];
         let daysPerTableRow = 1;
         for(let i=0; i<gapDays; i++) {
-            tmp[0].push({ day: 0});
+            tmp[0].push({ day: 0, meetings: []});
             daysPerTableRow++;
         }
 
         for(let i=0; i<daysInMonth; i++) {
-            tmp[tmp.length-1].push({ day: i+1 });
+            tmp[tmp.length-1].push(
+                { 
+                    day: i+1,
+                    meetings: [
+                        { 
+                            meetId: 123,
+                            name: 'TestName',
+                            time: '12:00 - 13:00',
+                            participants: ['Ana', 'Mara', 'Pera']
+                        },
+                        { 
+                            meetId: 123,
+                            name: 'TestName',
+                            time: '12:00 - 13:00',
+                            participants: ['Ana', 'Mara', 'Pera']
+                        }
+                    ]
+                }
+            );
             
             daysPerTableRow++;
             if(daysPerTableRow == 8) {
@@ -91,6 +109,7 @@ const Calendar = () => {
                                         <td key={itemId}>
                                             <Day 
                                                 dayIndex={item.day}
+                                                meetings={item.meetings}
                                             />
                                         </td>
                                     );
@@ -101,7 +120,7 @@ const Calendar = () => {
                 })
                }
             </tbody>
-        </table>>
+        </table>
         </>
     );
 };
