@@ -8,6 +8,8 @@ const Calendar = () => {
     const [year, setYear] = useState(0);
     const [daysInMonth, setDaysInMonth] = useState(0);
     const [gapDays, setGapDays] = useState(0);
+    const [gapDaysZero, setGapDaysZero] = useState(false);
+    const [gapDaysNonZero, setGapDaysNonZero] = useState(false);
     const [items, setItems] = useState([]);
     
     useEffect(() => {
@@ -16,7 +18,14 @@ const Calendar = () => {
         setMonth(date.getMonth());
         setYear(1900 + date.getYear());
 
-        setGapDays(date.getDay());
+        date.setDate(1);
+        const gapTmp = date.getDay();
+        if(!gapTmp) {
+            setGapDaysZero(true);
+        } else {
+            setGapDays(gapTmp);
+            setGapDaysNonZero(true);
+        }
 
         switch(month) {
             case 0, 2, 4, 6, 7, 9, 11:
@@ -41,13 +50,21 @@ const Calendar = () => {
         
     }, []);
     
-    useEffect(() => {
-        if(!daysInMonth) {
+    useEffect(() => getItems(), 
+        [daysInMonth, gapDays, gapDaysZero, gapDaysNonZero]);
+
+    const getItems = () => {
+        const gapDaysReady = gapDaysZero || gapDaysNonZero;
+        if(!daysInMonth || !gapDaysReady) {
+            return;
+        }
+        if(gapDaysNonZero && !gapDays) {
             return;
         }
 
         const tmp = [[]];
         let daysPerTableRow = 1;
+        console.log(gapDays);
         for(let i=0; i<gapDays; i++) {
             tmp[0].push({ day: 0, meetings: []});
             daysPerTableRow++;
@@ -86,7 +103,7 @@ const Calendar = () => {
         }
         
         setItems(tmp);
-    }, [daysInMonth]);
+    }
 
     return (
         <>
