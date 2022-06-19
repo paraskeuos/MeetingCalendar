@@ -55,12 +55,14 @@ const Calendar = () => {
                         { 
                             meetId: 123,
                             name: 'TestName',
+                            description: 'test desc',
                             time: '12:00 - 13:00',
                             participants: ['Ana', 'Mara', 'Pera']
                         },
                         { 
                             meetId: 123,
                             name: 'TestName',
+                            description: 'test desc',
                             time: '12:00 - 13:00',
                             participants: ['Ana', 'Mara', 'Pera']
                         }

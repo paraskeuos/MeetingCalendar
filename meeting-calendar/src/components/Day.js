@@ -9,6 +9,8 @@ const Day = ({ dayIndex, meetings }) => {
                 <p key={meetKey}>
                     {meeting.name}
                     <br/>
+                    {meeting.description}
+                    <br/>
                     {meeting.time}
                 </p>
             ))
