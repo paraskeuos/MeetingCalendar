@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 
 const MeetingTable = ({month, itemsPerWeek}) => {
-    const [cellsPerRow, setCellsPerRow] = useState(0);
 
     return (
         <table>
