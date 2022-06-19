@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Day } from '../components/Day';
 
 const MeetingTable = ({month, itemsPerWeek}) => {
 
@@ -14,20 +15,24 @@ const MeetingTable = ({month, itemsPerWeek}) => {
                     <th>FRI</th>
                     <th>SAT</th>
                 </tr>
-               {
+               {itemsPerWeek.length ?
                 itemsPerWeek.map((itemWeek, weekId) => {
                     return (
                         <tr key={weekId}>
                             {
                                 itemWeek.map((item, itemId) => {
-                                    return <td key={itemId}>
-                                        {item.day > 0 ? item.day : ""}
-                                        </td>;
+                                    return (
+                                        <td key={itemId} >
+                                            <Day
+                                                dayIndex={item.day}
+                                            />
+                                        </td>
+                                    );
                                 })
                             }
                         </tr>
                     );
-                })
+                }) : ""
                }
             </tbody>
         </table>

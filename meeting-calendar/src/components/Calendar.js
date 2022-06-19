@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import MeetingTable from './MeetingTable';
+import Day from '../components/Day';
 
 const Calendar = () => {
     const [monthName, setMonthName] = useState('');
@@ -61,13 +62,46 @@ const Calendar = () => {
         setItems(tmp);
     }, []);
 
+    console.log(items);
+
     return (
         <>
             <h1>{ monthName + ' ' + year }</h1>
             <p>Here are all your planned events. 
                 You will find information for each event as well as plan a new one.
             </p>
-            <MeetingTable month={month} itemsPerWeek={items}/>
+            <table>
+            <tbody>
+                <tr>
+                    <th>SUN</th>
+                    <th>MON</th>
+                    <th>TUE</th>
+                    <th>WED</th>
+                    <th>THU</th>
+                    <th>FRI</th>
+                    <th>SAT</th>
+                </tr>
+               {
+                items?.map((itemWeek, weekId) => {
+                    return (
+                        <tr key={weekId}>
+                            {
+                                itemWeek.map((item, itemId) => {
+                                    return (
+                                        <td key={itemId}>
+                                            <Day 
+                                                dayIndex={item.day}
+                                            />
+                                        </td>
+                                    );
+                                })
+                            }
+                        </tr>
+                    );
+                })
+               }
+            </tbody>
+        </table>>
         </>
     );
 };
