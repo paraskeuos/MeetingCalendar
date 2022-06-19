@@ -16,7 +16,6 @@ const Calendar = () => {
         setMonth(date.getMonth());
         setYear(1900 + date.getYear());
 
-        date.setDate(1);
         setGapDays(date.getDay());
 
         switch(month) {
@@ -38,6 +37,13 @@ const Calendar = () => {
             default:
                 setDaysInMonth(30);
                 break;          
+        }
+        
+    }, []);
+    
+    useEffect(() => {
+        if(!daysInMonth) {
+            return;
         }
 
         const tmp = [[]];
@@ -78,11 +84,9 @@ const Calendar = () => {
                 }
             }
         }
-
+        
         setItems(tmp);
-    }, []);
-
-    //console.log(items);
+    }, [daysInMonth]);
 
     return (
         <>
