@@ -6,7 +6,8 @@ module.exports.addMeeting = async (req, res, next) => {
     try {
         const participants = [];
         req.body.participants.array.forEach(participantName => {
-            const participant = Participant.find({ name: participantName });
+            const participant = 
+                await Participant.findOne({ name: participantName }).exec();
             participants.push(participant);
         });
 
@@ -26,13 +27,26 @@ module.exports.addMeeting = async (req, res, next) => {
 
 module.exports.deleteMeeting = async (req, res, next) => {
     try {
-        await Meeting.deleteOne({ _id: req.body.id });
+        await Meeting.deleteOne({ _id: req.body.id }).exec();
         res.status(200).json({ msg: 'Meeting deleted.' });
     } catch(err) {
-
+        next(err);
     }
 };
 
 module.exports.getMeetings = async (req, res, next) => {
-    // TODO
+    const month = req.body.month;
+    const year = req.body.year;
+    
+    try {
+        const meetings = await Meeting
+            .find({ $and: [{ month: month }, { year: year }]})
+            .sort({ month: 'asc'})
+            .exec();
+
+        res.status(200).json(meetings);
+
+    } catch(err) {
+        next(err);
+    }
 };
