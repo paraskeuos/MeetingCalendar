@@ -45,6 +45,7 @@ module.exports.getMeetings = async (req, res, next) => {
         const meetings = await Meeting
             .find({ $and: [{ month: month }, { year: year }]})
             .sort({ month: 'asc'})
+            .populate('participants')
             .exec();
 
         res.status(200).json(meetings);
