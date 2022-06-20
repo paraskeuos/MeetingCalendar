@@ -7,10 +7,13 @@ const Calendar = () => {
     const [month, setMonth] = useState(0);
     const [year, setYear] = useState(0);
     const [daysInMonth, setDaysInMonth] = useState(0);
+    const [calendar, setCalendar] = useState([]);
+    const [participants, setParticipants] = useState([]);
+
     const [gapDays, setGapDays] = useState(0);
     const [gapDaysZero, setGapDaysZero] = useState(false);
     const [gapDaysNonZero, setGapDaysNonZero] = useState(false);
-    const [items, setItems] = useState([]);
+    const [readyForFetch, setReadyForFetch] = useState(false);
     
     useEffect(() => {
         const date = new Date();
@@ -50,10 +53,19 @@ const Calendar = () => {
         
     }, []);
     
-    useEffect(() => getItems(), 
+    useEffect(() => initCalendar(), 
         [daysInMonth, gapDays, gapDaysZero, gapDaysNonZero]);
 
-    const getItems = () => {
+    useEffect(() => {
+        if(!readyForFetch || !calendar.length !== gapDays + daysInMonth) {
+            return;
+        }
+
+
+
+    }, [readyForFetch, calendar]);
+
+    const initCalendar = () => {
         const gapDaysReady = gapDaysZero || gapDaysNonZero;
         if(!daysInMonth || !gapDaysReady) {
             return;
@@ -101,7 +113,8 @@ const Calendar = () => {
             }
         }
         
-        setItems(tmp);
+        setCalendar(tmp);
+        setReadyForFetch(true);
     }
 
     return (
@@ -122,7 +135,7 @@ const Calendar = () => {
                     <th>SAT</th>
                 </tr>
                {
-                items.map((itemWeek, weekId) => {
+                calendar.map((itemWeek, weekId) => {
                     return (
                         <tr key={weekId}>
                             {
