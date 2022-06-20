@@ -8,8 +8,11 @@ const Day = ({ dayIndex, meetings }) => {
         <p>{ dayIndex == 0 ? "" : dayIndex }</p>
         {
             meetings.map((meeting, meetKey) => (
-                <Link key={meetKey} href={`/sastanak/${meeting.meetId}`}>
-                    <p  href={`/sastanak/${meeting.meetId}`}>
+                <Link key={meetKey} 
+                      href={{
+                        pathname: `/sastanak/${meeting.meetId}`,
+                        query: meeting }}>
+                    <p>
                     {meeting.name}
                     <br/>
                     {meeting.description}

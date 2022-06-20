@@ -64,7 +64,6 @@ const Calendar = () => {
 
         const tmp = [[]];
         let daysPerTableRow = 1;
-        console.log(gapDays);
         for(let i=0; i<gapDays; i++) {
             tmp[0].push({ day: 0, meetings: []});
             daysPerTableRow++;
