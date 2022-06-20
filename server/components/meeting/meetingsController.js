@@ -38,16 +38,13 @@ module.exports.deleteMeeting = async (req, res, next) => {
 };
 
 module.exports.getMeetings = async (req, res, next) => {
-    const month = req.body.month;
-    const year = req.body.year;
-    
     try {
         const meetings = await Meeting
-            .find({ $and: [{ month: month }, { year: year }]})
-            .sort({ month: 'asc'})
+            .find({ $and: [{ month: req.body.month }, { year: req.body.year }]})
+            .sort({ day: 'asc'})
             .populate('participants')
             .exec();
-
+        
         res.status(200).json(meetings);
 
     } catch(err) {

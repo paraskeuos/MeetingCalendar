@@ -13,7 +13,6 @@ const Calendar = () => {
     const [gapDays, setGapDays] = useState(0);
     const [gapDaysZero, setGapDaysZero] = useState(false);
     const [gapDaysNonZero, setGapDaysNonZero] = useState(false);
-    const [readyForFetch, setReadyForFetch] = useState(false);
     
     useEffect(() => {
         const date = new Date();
@@ -56,15 +55,6 @@ const Calendar = () => {
     useEffect(() => initCalendar(), 
         [daysInMonth, gapDays, gapDaysZero, gapDaysNonZero]);
 
-    useEffect(() => {
-        if(!readyForFetch || !calendar.length !== gapDays + daysInMonth) {
-            return;
-        }
-
-
-
-    }, [readyForFetch, calendar]);
-
     const initCalendar = () => {
         const gapDaysReady = gapDaysZero || gapDaysNonZero;
         if(!daysInMonth || !gapDaysReady) {
@@ -77,44 +67,43 @@ const Calendar = () => {
         const tmp = [[]];
         let daysPerTableRow = 1;
         for(let i=0; i<gapDays; i++) {
-            tmp[0].push({ day: 0, meetings: []});
+            tmp[0].push({ day: 0 });
             daysPerTableRow++;
         }
-
-        for(let i=0; i<daysInMonth; i++) {
-            tmp[tmp.length-1].push(
-                { 
-                    day: i+1,
-                    meetings: [
-                        { 
-                            meetId: 123,
-                            name: 'TestName',
-                            description: 'test desc',
-                            time: '12:00 - 13:00',
-                            participants: ['Ana', 'Mara', 'Pera']
-                        },
-                        { 
-                            meetId: 123,
-                            name: 'TestName',
-                            description: 'test desc',
-                            time: '12:00 - 13:00',
-                            participants: ['Ana', 'Mara', 'Pera']
-                        }
-                    ]
-                }
-            );
-            
-            daysPerTableRow++;
-            if(daysPerTableRow == 8) {
-                daysPerTableRow = 1;
-                if(i+1 < daysInMonth) {
+        const reqObj = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ month, year })
+        };
+        fetch('http://localhost:4000/meetings/', reqObj)
+        .then(res => res.json())
+        .then(json => {
+            console.log(json);
+            let i=1, j=0;
+            while(i<=daysInMonth && j<json.length) {
+                if(daysPerTableRow == 8) {
+                    daysPerTableRow = 1;
                     tmp.push([]);
                 }
+
+                if(i < json[j].day) {
+                    tmp[tmp.length-1].push({ day: i });
+                    i++;
+                } else {
+                    
+                    tmp[tmp.length-1].push({ day: i, meetings: []});
+                    
+                    while(j<json.length && i == json[j].day) {
+                        tmp[tmp.length-1][daysPerTableRow-1].meetings.push(json[j]);
+                        j++;
+                    }
+                }
+                daysPerTableRow++;
             }
-        }
-        
-        setCalendar(tmp);
-        setReadyForFetch(true);
+            setCalendar(tmp);
+        });
     }
 
     return (
