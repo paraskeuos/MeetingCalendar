@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const Participant = require('./participantModel');
 
 module.exports.getParticipants = async (req, res, next) => {
