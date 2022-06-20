@@ -4,12 +4,9 @@ const Participant = require('../participant/participantModel');
 
 module.exports.addMeeting = async (req, res, next) => {
     try {
-        const participants = [];
-        req.body.participants.array.forEach(participantName => {
-            const participant = 
-                await Participant.findOne({ name: participantName }).exec();
-            participants.push(participant);
-        });
+        const participantIds = req.body.array.map(name => ({ name }));
+        const participants = await Participant
+            .find({ $or: participantIds }).exec();
 
         const meetingObj = new Meeting({
             _id: new mongoose.Types.ObjectId(),
