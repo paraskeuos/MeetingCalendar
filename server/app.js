@@ -1,7 +1,19 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const app = express();
+
+mongoose.connect('mongodb://localhost:27017/meeting-calendar', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+
+mongoose.connection.once('open', () => console.log('DB connection successful.'));
+
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
+app.use(bodyParser.json({ limit: '50mb' }));
+
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -21,7 +33,7 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-    const error = new Error('Zahtev nije podrzan od strane servera');
+    const error = new Error('Unsupported request.');
     error.status = 405;
 
     next(error);
