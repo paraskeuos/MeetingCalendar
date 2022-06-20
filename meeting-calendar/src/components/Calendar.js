@@ -15,6 +15,10 @@ const Calendar = () => {
     const [gapDaysNonZero, setGapDaysNonZero] = useState(false);
     
     useEffect(() => {
+        fetch('http://localhost:4000/participants/')
+        .then(res => res.json())
+        .then(json => setParticipants(json));
+
         const date = new Date();
         setMonthName(date.toLocaleString('default', { month: 'long' }));
         setMonth(date.getMonth());
@@ -80,7 +84,7 @@ const Calendar = () => {
         fetch('http://localhost:4000/meetings/', reqObj)
         .then(res => res.json())
         .then(json => {
-            console.log(json);
+            
             let i=1, j=0;
             while(i<=daysInMonth && j<json.length) {
                 if(daysPerTableRow == 8) {
@@ -104,6 +108,7 @@ const Calendar = () => {
             }
             setCalendar(tmp);
         });
+
     }
 
     return (
