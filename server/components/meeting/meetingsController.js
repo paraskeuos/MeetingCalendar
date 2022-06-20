@@ -18,14 +18,19 @@ module.exports.addMeeting = async (req, res, next) => {
             participants
         });
 
-        res.status(201).json({ msg: 'Meeting added' });
+        res.status(201).json({ msg: 'Meeting added.' });
     } catch(err) {
         next(err);
     }
 };
 
 module.exports.deleteMeeting = async (req, res, next) => {
-    // TODO
+    try {
+        await Meeting.deleteOne({ _id: req.body.id });
+        res.status(200).json({ msg: 'Meeting deleted.' });
+    } catch(err) {
+
+    }
 };
 
 module.exports.getMeetings = async (req, res, next) => {
