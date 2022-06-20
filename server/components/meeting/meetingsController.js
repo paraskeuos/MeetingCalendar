@@ -4,17 +4,23 @@ const Participant = require('../participant/participantModel');
 
 module.exports.addMeeting = async (req, res, next) => {
     try {
-        const participantIds = req.body.array.map(name => ({ name }));
+        const partNameObjs = JSON.parse(req.body.participants)
+            .map(name => ({ name }));
         const participants = await Participant
-            .find({ $or: participantIds }).exec();
+            .find({ $or: partNameObjs }).exec();
 
         const meetingObj = new Meeting({
             _id: new mongoose.Types.ObjectId(),
+            day: req.body.day,
+            month: req.body.month,
+            year: req.body.year,
             name: req.body.name,
             description: req.body.description,
             time: req.body.time,
             participants
         });
+
+        await meetingObj.save();
 
         res.status(201).json({ msg: 'Meeting added.' });
     } catch(err) {
