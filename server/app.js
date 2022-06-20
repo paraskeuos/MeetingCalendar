@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const participantsRoutes = require('./components/participant/participantsAPI');
 
 const app = express();
 
@@ -31,6 +32,8 @@ app.use((req, res, next) => {
 
     next();
 });
+
+app.use('/participants', participantsRoutes);
 
 app.use((req, res, next) => {
     const error = new Error('Unsupported request.');
