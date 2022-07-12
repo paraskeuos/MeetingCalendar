@@ -72,11 +72,37 @@ const Calendar = () => {
             },
             body: JSON.stringify({ month, year })
         };
-        /*
+        
         fetch('http://localhost:4000/meetings/', reqObj)
         .then(res => res.json())
         .then(json => {
-            
+            let i = 0;
+            while(i<json.length) {
+                const meetingDay = json[i].day;
+                // Find week of the meeting
+                for(let j=0; ; j++) {
+                    if(meetingDay > tmp[j][6].day) {
+                        continue;
+                    }
+                    
+                    // Find day in week of the meeting
+                    for(let k=0; k<7; k++) {
+                        if(tmp[j][k].day < meetingDay) {
+                            continue;
+                        }
+
+                        tmp[j][k].meetings = []
+                        // Add all meetings of the same day
+                        while(i<json.length && meetingDay === json[i].day) {
+                            tmp[j][k].meetings.push(json[i]);
+                            i++;
+                        }
+                        break;
+                    }
+                    break;
+                }
+            }
+            /*
             let i=1, j=0;
             while(i<=daysInMonth && j<json.length) {
                 if(daysPerTableRow == 8) {
@@ -97,8 +123,9 @@ const Calendar = () => {
                     }
                 }
                 daysPerTableRow++;
-            }
-        });*/
+            }*/
+            setCalendar(tmp);
+        });
 
     }
 
