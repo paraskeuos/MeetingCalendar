@@ -16,6 +16,19 @@ const MeetingInfo = () => {
                 
             )}
         </ul>
+        <button onClick={() => {
+            const reqObj = {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: router.query._id })
+            };
+            
+            fetch('http://localhost:4000/meetings/', reqObj)
+            .then(res => res.json())
+            .then(json => router.push('/'));
+        }}>Remove meeting</button>
         <Link href="/">
             <a>Back</a>
         </Link>

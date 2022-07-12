@@ -9,7 +9,7 @@ const Day = ({ dayIndex, meetings, onDoubleClick }) => {
             meetings?.map((meeting, meetKey) => (
                 <Link key={meetKey} 
                       href={{
-                        pathname: `/sastanak/${meeting.meetId}`,
+                        pathname: `/sastanak/${meeting._id}`,
                         query: {...meeting,
                                 participants: meeting.participants
                                                 .map(part => part.name)
