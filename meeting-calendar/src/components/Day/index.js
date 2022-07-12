@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 const Day = ({ dayIndex, meetings, onDoubleClick }) => {
@@ -11,7 +10,10 @@ const Day = ({ dayIndex, meetings, onDoubleClick }) => {
                 <Link key={meetKey} 
                       href={{
                         pathname: `/sastanak/${meeting.meetId}`,
-                        query: meeting }}>
+                        query: {...meeting,
+                                participants: meeting.participants
+                                                .map(part => part.name)
+                                                .join(',')} }}>
                     <p>
                     {meeting.name}
                     <br/>

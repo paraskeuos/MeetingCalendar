@@ -11,7 +11,7 @@ const MeetingInfo = () => {
         <p>{ router.query.description }</p>
         <ul>
             Participants:
-            { router.query.participants.map(
+            { router.query.participants.split(',').map(
                 (participant, pId) => (<li key={pId}>{participant}</li>)
                 
             )}
