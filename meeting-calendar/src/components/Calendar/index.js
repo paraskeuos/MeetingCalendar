@@ -67,7 +67,6 @@ const Calendar = () => {
             tmp[tmp.length-1].push({ day: i });
             daysPerTableRow++;
         }
-        setCalendar(tmp);
 
         const reqObj = {
             method: 'POST',
@@ -94,40 +93,19 @@ const Calendar = () => {
                         if(tmp[j][k].day < meetingDay) {
                             continue;
                         }
-
+                        
                         tmp[j][k].meetings = []
                         // Add all meetings of the same day
                         while(i<json.length && meetingDay === json[i].day) {
                             tmp[j][k].meetings.push(json[i]);
                             i++;
+                            console.log(tmp[j][k].meetings);
                         }
                         break;
                     }
                     break;
                 }
             }
-            /*
-            let i=1, j=0;
-            while(i<=daysInMonth && j<json.length) {
-                if(daysPerTableRow == 8) {
-                    daysPerTableRow = 1;
-                    tmp.push([]);
-                }
-
-                if(i < json[j].day) {
-                    tmp[tmp.length-1].push({ day: i });
-                    i++;
-                } else {
-                    
-                    tmp[tmp.length-1].push({ day: i, meetings: []});
-                    
-                    while(j<json.length && i == json[j].day) {
-                        tmp[tmp.length-1][daysPerTableRow-1].meetings.push(json[j]);
-                        j++;
-                    }
-                }
-                daysPerTableRow++;
-            }*/
             setCalendar(tmp);
         });
 
@@ -191,7 +169,7 @@ const Calendar = () => {
                     <th>SAT</th>
                 </tr>
                {
-                calendar.map((itemWeek, weekId) => {
+                calendar?.map((itemWeek, weekId) => {
                     return (
                         <tr key={weekId}>
                             {

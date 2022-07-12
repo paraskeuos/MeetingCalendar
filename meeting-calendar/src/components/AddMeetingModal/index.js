@@ -29,12 +29,25 @@ const AddMeetingModal = ({ day, month, year, participants, closeModal }) => {
             <div className={styles.modal}>
                 <form onSubmit={(e) => {
                     console.log(meetingInfo);
+
+                    const reqObj = {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(meetingInfo)
+                    };
+                    
+                    fetch('http://localhost:4000/meetings/add', reqObj)
+                    .then(res => res.json())
+                    .then(json => console.log(json.msg));
+
                     e.preventDefault();
                 }}>
                     <div className={styles.input}>
                         <label>Title:</label>
                         <input type="text"
-                               name="title"
+                               name="name"
                                onChange={(e) => handleChange(e)}
                                required />
                     </div>
