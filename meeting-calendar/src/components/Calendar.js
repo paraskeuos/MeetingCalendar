@@ -67,13 +67,22 @@ const Calendar = () => {
         if(gapDaysNonZero && !gapDays) {
             return;
         }
-
+        
         const tmp = [[]];
         let daysPerTableRow = 1;
         for(let i=0; i<gapDays; i++) {
             tmp[0].push({ day: 0 });
             daysPerTableRow++;
         }
+        for(let i=1; i<=daysInMonth; i++) {
+            if(daysPerTableRow == 8) {
+                daysPerTableRow = 1;
+                tmp.push([]);
+            }
+            tmp[tmp.length-1].push({ day: i });
+            daysPerTableRow++;
+        }
+
         const reqObj = {
             method: 'POST',
             headers: {
@@ -107,6 +116,8 @@ const Calendar = () => {
                 daysPerTableRow++;
             }
             setCalendar(tmp);
+            console.log(tmp);
+            console.log(participants);
         });
 
     }
