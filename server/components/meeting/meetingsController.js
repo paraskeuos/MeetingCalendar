@@ -4,8 +4,8 @@ const Participant = require('../participant/participantModel');
 
 module.exports.addMeeting = async (req, res, next) => {
     try {
-        const partNameObjs = JSON.parse(req.body.participants)
-            .map(name => ({ name }));
+        //const partNameObjs = JSON.parse(req.body.participants)
+        const partNameObjs = req.body.participants.map(name => ({ name }));
         const participants = await Participant
             .find({ $or: partNameObjs }).exec();
 
@@ -19,7 +19,7 @@ module.exports.addMeeting = async (req, res, next) => {
             time: req.body.time,
             participants
         });
-
+        
         await meetingObj.save();
 
         res.status(201).json({ msg: 'Meeting added.' });

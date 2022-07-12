@@ -35,9 +35,9 @@ const AddMeetingModal = ({ day, month, year, participants, closeModal }) => {
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify(meetingInfo)
+                        body: JSON.stringify({...meetingInfo})
                     };
-                    
+                    console.log(reqObj.body);
                     fetch('http://localhost:4000/meetings/add', reqObj)
                     .then(res => res.json())
                     .then(json => console.log(json.msg));
