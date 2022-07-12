@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Day } from '../components/Day';
+import { Day } from '../Day';
 
 const MeetingTable = ({month, itemsPerWeek}) => {
 

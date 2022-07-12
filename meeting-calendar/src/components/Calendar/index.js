@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import MeetingTable from './MeetingTable';
-import Day from '../components/Day';
+import MeetingTable from '../MeetingTable';
+import Day from '../Day';
 
 const Calendar = () => {
     const [monthName, setMonthName] = useState('');
