@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import MeetingTable from '../MeetingTable';
 import Day from '../Day';
+import AddMeetingModal from '../AddMeetingModal';
 
 const Calendar = () => {
     const [monthName, setMonthName] = useState('');
@@ -189,7 +190,8 @@ const Calendar = () => {
                 })
                }
             </tbody>
-        </table>
+            </table>
+            <AddMeetingModal />
         </>
     );
 };
