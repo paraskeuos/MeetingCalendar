@@ -99,7 +99,6 @@ const Calendar = () => {
                         while(i<json.length && meetingDay === json[i].day) {
                             tmp[j][k].meetings.push(json[i]);
                             i++;
-                            console.log(tmp[j][k].meetings);
                         }
                         break;
                     }
@@ -146,9 +145,13 @@ const Calendar = () => {
 
     }, [chosenDay])
 
-    const closeModal = () => {
+    const closeModal = (addedMeeting) => {
         setChosenDay(0);
         setShowModal(false);
+
+        if(addedMeeting) {
+            initCalendar();
+        }
     };
 
     return (
@@ -192,7 +195,7 @@ const Calendar = () => {
                                  month={month}
                                  year={year}
                                  participants={participants}
-                                 closeModal={() => closeModal()}/> }
+                                 closeModal={closeModal}/> }
         </>
     );
 };

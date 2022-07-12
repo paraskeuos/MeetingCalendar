@@ -28,7 +28,6 @@ const AddMeetingModal = ({ day, month, year, participants, closeModal }) => {
         <div className={styles.overlay}>
             <div className={styles.modal}>
                 <form onSubmit={(e) => {
-                    console.log(meetingInfo);
 
                     const reqObj = {
                         method: 'POST',
@@ -40,7 +39,7 @@ const AddMeetingModal = ({ day, month, year, participants, closeModal }) => {
                     console.log(reqObj.body);
                     fetch('http://localhost:4000/meetings/add', reqObj)
                     .then(res => res.json())
-                    .then(json => console.log(json.msg));
+                    .then(json => closeModal(true));
 
                     e.preventDefault();
                 }}>
@@ -77,7 +76,7 @@ const AddMeetingModal = ({ day, month, year, participants, closeModal }) => {
                         </select>
                     </div>
                     <button type="submit">Save</button>
-                    <button onClick={closeModal}>Close</button>
+                    <button onClick={() => closeModal(false)}>Close</button>
                 </form>
             </div>
         </div>
