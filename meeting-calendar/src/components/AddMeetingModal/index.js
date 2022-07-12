@@ -1,6 +1,6 @@
 import styles from './addmeeting.module.css';
 
-const AddMeetingModal = () => {
+const AddMeetingModal = ({ participants }) => {
     return (
         <div className={styles.overlay}>
             <div className={styles.modal}>
@@ -20,9 +20,8 @@ const AddMeetingModal = () => {
                     <div className={styles.input}>
                         <label>Participants:</label>
                         <select size="5" multiple>
-                            <option>Pera</option>
-                            <option>Mika</option>
-                            <option>Zika</option>
+                            { participants?.map((participant, partId) => 
+                                <option key={partId}>{participant.name}</option>) }
                         </select>
                     </div>
                     <button type="submit">Save</button>

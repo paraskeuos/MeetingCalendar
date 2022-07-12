@@ -191,7 +191,7 @@ const Calendar = () => {
                }
             </tbody>
             </table>
-            <AddMeetingModal />
+            <AddMeetingModal participants={participants}/>
         </>
     );
 };
