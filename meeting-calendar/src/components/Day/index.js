@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-const Day = ({ dayIndex, meetings }) => {
+const Day = ({ dayIndex, meetings, onDoubleClick }) => {
 
     return (
-        <td>
+        <td onDoubleClick={onDoubleClick}>
         <p>{ dayIndex == 0 ? "" : dayIndex }</p>
         {
             meetings?.map((meeting, meetKey) => (

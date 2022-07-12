@@ -15,6 +15,9 @@ const Calendar = () => {
     const [gapDaysZero, setGapDaysZero] = useState(false);
     const [gapDaysNonZero, setGapDaysNonZero] = useState(false);
     
+    const [showModal, setShowModal] = useState(false);
+    const [chosenDay, setChosenDay] = useState(0);
+
     useEffect(() => {
         fetch('http://localhost:4000/participants/')
         .then(res => res.json())
@@ -156,6 +159,15 @@ const Calendar = () => {
         }
     }
 
+    useEffect(() => {
+        if(!chosenDay) {
+            return;
+        }
+
+        setShowModal(true);
+
+    }, [chosenDay])
+
     return (
         <>
             <h1>{ monthName + ' ' + year }</h1>
@@ -182,6 +194,7 @@ const Calendar = () => {
                                     return <Day key={itemId}
                                                 dayIndex={item.day}
                                                 meetings={item.meetings}
+                                                onDoubleClick={() => setChosenDay(item.day)}
                                             />;
                                 })
                             }
@@ -191,7 +204,11 @@ const Calendar = () => {
                }
             </tbody>
             </table>
-            <AddMeetingModal participants={participants}/>
+            { showModal && 
+                <AddMeetingModal day={chosenDay}
+                                 month={month}
+                                 year={year}
+                                 participants={participants}/> }
         </>
     );
 };

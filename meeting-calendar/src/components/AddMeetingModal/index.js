@@ -1,8 +1,12 @@
 import styles from './addmeeting.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const AddMeetingModal = ({ participants }) => {
+const AddMeetingModal = ({ day, month, year, participants }) => {
     const [meetingInfo, setMeetingInfo] = useState({});
+
+    useEffect(() => {
+        setMeetingInfo({ day, month, year });
+    }, []);
 
     const handleChange = (e) => {
         const newInfo = {...meetingInfo};
