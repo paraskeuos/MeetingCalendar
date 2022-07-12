@@ -33,26 +33,7 @@ const Calendar = () => {
             setGapDaysNonZero(true);
         }
 
-        switch(month) {
-            case 0, 2, 4, 6, 7, 9, 11:
-                setDaysInMonth(31);
-                break;
-            case 1:
-                let leapYear = false;
-                if (year % 4 == 0) {
-                    if (year % 100 == 0) {
-                      leapYear = year % 400 == 0 ? true : false;
-                    }
-                    else {
-                      leapYear = true;
-                    }
-                }
-                setDaysInMonth(leapYear ? 29 : 28);
-                break;
-            default:
-                setDaysInMonth(30);
-                break;          
-        }
+        setDaysInMonth(getNumberOfDaysInMonth(month));
         
     }, []);
     
@@ -82,6 +63,7 @@ const Calendar = () => {
             tmp[tmp.length-1].push({ day: i });
             daysPerTableRow++;
         }
+        setCalendar(tmp);
 
         const reqObj = {
             method: 'POST',
@@ -90,6 +72,7 @@ const Calendar = () => {
             },
             body: JSON.stringify({ month, year })
         };
+        /*
         fetch('http://localhost:4000/meetings/', reqObj)
         .then(res => res.json())
         .then(json => {
@@ -115,11 +98,34 @@ const Calendar = () => {
                 }
                 daysPerTableRow++;
             }
-            setCalendar(tmp);
-            console.log(tmp);
-            console.log(participants);
-        });
+        });*/
 
+    }
+
+    const getNumberOfDaysInMonth = month => {
+        switch(month) {
+            case 0:
+            case 2:
+            case 4:
+            case 6:
+            case 7:
+            case 9:
+            case 11:
+                return 31;
+            case 1:
+                let leapYear = false;
+                if (year % 4 == 0) {
+                    if (year % 100 == 0) {
+                      leapYear = year % 400 == 0 ? true : false;
+                    }
+                    else {
+                      leapYear = true;
+                    }
+                }
+                return leapYear ? 29 : 28;
+            default:
+                return 30;     
+        }
     }
 
     return (
