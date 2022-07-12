@@ -168,6 +168,11 @@ const Calendar = () => {
 
     }, [chosenDay])
 
+    const closeModal = () => {
+        setChosenDay(0);
+        setShowModal(false);
+    };
+
     return (
         <>
             <h1>{ monthName + ' ' + year }</h1>
@@ -208,7 +213,8 @@ const Calendar = () => {
                 <AddMeetingModal day={chosenDay}
                                  month={month}
                                  year={year}
-                                 participants={participants}/> }
+                                 participants={participants}
+                                 closeModal={() => closeModal()}/> }
         </>
     );
 };

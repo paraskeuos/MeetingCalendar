@@ -1,7 +1,7 @@
 import styles from './addmeeting.module.css';
 import { useState, useEffect } from 'react';
 
-const AddMeetingModal = ({ day, month, year, participants }) => {
+const AddMeetingModal = ({ day, month, year, participants, closeModal }) => {
     const [meetingInfo, setMeetingInfo] = useState({});
 
     useEffect(() => {
@@ -64,6 +64,7 @@ const AddMeetingModal = ({ day, month, year, participants }) => {
                         </select>
                     </div>
                     <button type="submit">Save</button>
+                    <button onClick={closeModal}>Close</button>
                 </form>
             </div>
         </div>
