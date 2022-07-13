@@ -69,7 +69,7 @@ const AddMeetingModal = ({ day, month, year, participants, closeModal }) => {
                     </div>
                     <div className={styles.inputdiv}>
                         <label className={styles.inputdivelement}>Participants:</label>
-                        <select size="5"
+                        <select size="4"
                                 name="attendees"
                                 className={styles.inputdivelement}
                                 onChange={(e) => handleChange(e)}
@@ -79,8 +79,12 @@ const AddMeetingModal = ({ day, month, year, participants, closeModal }) => {
                                 <option key={partId}>{participant.name}</option>) }
                         </select>
                     </div>
-                    <button type="submit">Save</button>
-                    <button onClick={() => closeModal(false)}>Close</button>
+                    <div className={styles.buttondiv}>
+                        <button type="submit" className={styles.button}>SAVE</button>
+                        <button type="button"
+                                className={styles.button}
+                                onClick={() => closeModal(false)}>CANCEL</button>
+                    </div>
                 </form>
             </div>
         </div>
