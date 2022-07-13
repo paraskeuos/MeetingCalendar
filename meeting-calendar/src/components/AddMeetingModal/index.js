@@ -43,31 +43,35 @@ const AddMeetingModal = ({ day, month, year, participants, closeModal }) => {
 
                     e.preventDefault();
                 }}>
-                    <div className={styles.input}>
-                        <label>Title:</label>
+                    <div className={styles.inputdiv}>
+                        <label className={styles.inputdivelement}>Title:</label>
                         <input type="text"
                                name="name"
+                               className={styles.inputdivelement}
                                onChange={(e) => handleChange(e)}
                                required />
                     </div>
-                    <div className={styles.input}>
-                        <label>Description:</label>
+                    <div className={styles.inputdiv}>
+                        <label className={styles.inputdivelement}>Description:</label>
                         <textarea type="text"
                                   name="description"
+                                  className={styles.inputdivelement}
                                   onChange={(e) => handleChange(e)}
                                   required />
                     </div>
-                    <div className={styles.input}>
-                        <label>Time:</label>
+                    <div className={styles.inputdiv}>
+                        <label className={styles.inputdivelement}>Time:</label>
                         <input type="text"
                                name="time"
+                               className={styles.inputdivelement}
                                onChange={(e) => handleChange(e)}
                                required />
                     </div>
-                    <div className={styles.input}>
-                        <label>Participants:</label>
+                    <div className={styles.inputdiv}>
+                        <label className={styles.inputdivelement}>Participants:</label>
                         <select size="5"
                                 name="attendees"
+                                className={styles.inputdivelement}
                                 onChange={(e) => handleChange(e)}
                                 multiple
                                 required >
