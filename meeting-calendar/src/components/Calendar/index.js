@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import MeetingTable from '../MeetingTable';
-import Day from '../Day';
+import Header from '../Header';
 import AddMeetingModal from '../AddMeetingModal';
 
 const Calendar = () => {
@@ -156,10 +156,7 @@ const Calendar = () => {
 
     return (
         <>
-            <h1>{ monthName + ' ' + year }</h1>
-            <p>Here are all your planned events. 
-                You will find information for each event as well as plan a new one.
-            </p>
+            <Header monthName={monthName} year={year}/>
             <MeetingTable calendar={calendar} openModal={setChosenDay} />
             
             { showModal && 
