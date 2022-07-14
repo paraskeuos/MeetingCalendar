@@ -78,7 +78,7 @@ const Calendar = () => {
         };
         
         fetch('http://localhost:4000/meetings/', reqObj)
-        .then(res => res.json())
+        .then(res => res.json(), () => setCalendar(tmp))
         .then(json => {
             let i = 0;
             while(i<json.length) {
