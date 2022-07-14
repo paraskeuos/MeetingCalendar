@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Day } from '../Day';
+import Day from '../Day';
 
-const MeetingTable = ({month, itemsPerWeek}) => {
+const MeetingTable = ({calendar, openModal}) => {
 
     return (
         <table>
@@ -15,24 +14,22 @@ const MeetingTable = ({month, itemsPerWeek}) => {
                     <th>FRI</th>
                     <th>SAT</th>
                 </tr>
-               {itemsPerWeek.length ?
-                itemsPerWeek.map((itemWeek, weekId) => {
+               {
+                calendar?.map((itemWeek, weekId) => {
                     return (
                         <tr key={weekId}>
                             {
                                 itemWeek.map((item, itemId) => {
-                                    return (
-                                        <td key={itemId} >
-                                            <Day
+                                    return <Day key={itemId}
                                                 dayIndex={item.day}
-                                            />
-                                        </td>
-                                    );
+                                                meetings={item.meetings}
+                                                onDoubleClick={() => openModal(item.day)}
+                                            />;
                                 })
                             }
                         </tr>
                     );
-                }) : ""
+                })
                }
             </tbody>
         </table>

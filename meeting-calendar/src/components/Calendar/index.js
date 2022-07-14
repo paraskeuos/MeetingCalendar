@@ -160,36 +160,8 @@ const Calendar = () => {
             <p>Here are all your planned events. 
                 You will find information for each event as well as plan a new one.
             </p>
-            <table>
-            <tbody>
-                <tr>
-                    <th>SUN</th>
-                    <th>MON</th>
-                    <th>TUE</th>
-                    <th>WED</th>
-                    <th>THU</th>
-                    <th>FRI</th>
-                    <th>SAT</th>
-                </tr>
-               {
-                calendar?.map((itemWeek, weekId) => {
-                    return (
-                        <tr key={weekId}>
-                            {
-                                itemWeek.map((item, itemId) => {
-                                    return <Day key={itemId}
-                                                dayIndex={item.day}
-                                                meetings={item.meetings}
-                                                onDoubleClick={() => setChosenDay(item.day)}
-                                            />;
-                                })
-                            }
-                        </tr>
-                    );
-                })
-               }
-            </tbody>
-            </table>
+            <MeetingTable calendar={calendar} openModal={setChosenDay} />
+            
             { showModal && 
                 <AddMeetingModal day={chosenDay}
                                  month={month}
