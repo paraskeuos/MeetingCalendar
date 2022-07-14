@@ -5,7 +5,7 @@ const Day = ({ dayIndex, meetings, onDoubleClick }) => {
 
     return (
         <td className={styles.td} onDoubleClick={onDoubleClick}>
-        <p>{ dayIndex == 0 ? "" : dayIndex }</p>
+        <h3 className={styles.dayNum}>{ dayIndex == 0 ? "" : dayIndex }</h3>
         {
             meetings?.map((meeting, meetKey) => (
                 <Link key={meetKey} 
@@ -15,13 +15,10 @@ const Day = ({ dayIndex, meetings, onDoubleClick }) => {
                                 participants: meeting.participants
                                                 .map(part => part.name)
                                                 .join(',')} }}>
-                    <p>
-                    {meeting.name}
-                    <br/>
-                    {meeting.description}
-                    <br/>
-                    {meeting.time}
-                    </p>
+                    <div className={styles.event}>
+                        <p className={styles.eventname}>{meeting.name}</p>
+                        <p className={styles.eventtime}>{meeting.time}</p>
+                    </div>
                 </Link>
             ))
         }
