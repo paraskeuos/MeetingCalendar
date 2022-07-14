@@ -1,0 +1,10 @@
+.table {
+    width: 100%;
+    display: block;
+    border-spacing: 20px;
+    font-family: Courier;
+}
+
+.element {
+    border-bottom: 1px solid black;
+}

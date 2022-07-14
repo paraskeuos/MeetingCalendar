@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import styles from './calendar.module.css';
 import MeetingTable from '../MeetingTable';
 import Header from '../Header';
 import AddMeetingModal from '../AddMeetingModal';
@@ -155,7 +156,7 @@ const Calendar = () => {
     };
 
     return (
-        <>
+        <div className={styles.overlay}>
             <Header monthName={monthName} year={year}/>
             <MeetingTable calendar={calendar} openModal={setChosenDay} />
             
@@ -165,7 +166,7 @@ const Calendar = () => {
                                  year={year}
                                  participants={participants}
                                  closeModal={closeModal}/> }
-        </>
+        </div>
     );
 };
 

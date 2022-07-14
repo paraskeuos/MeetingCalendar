@@ -1,0 +1,14 @@
+.body {
+    width: 100%;
+    margin: 20px 0;
+}
+
+.element {
+    display: flex;
+    justify-content: center;
+    font-family: Courier;
+}
+
+p.element {
+    font-style: italic;
+}

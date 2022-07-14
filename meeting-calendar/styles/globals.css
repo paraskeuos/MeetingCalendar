@@ -15,18 +15,3 @@ a {
   box-sizing: border-box;
 }
 
-table {
-  width: 80%;
-  border-spacing: 20px;
-}
-
-th {
-  border-bottom: 1px solid black;
-}
-
-td {
-  height: 120px;
-  width: 10%;
-  border-bottom: 1px solid black;
-  padding: 0 20px;
-}

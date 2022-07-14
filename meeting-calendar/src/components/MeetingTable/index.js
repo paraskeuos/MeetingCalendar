@@ -1,18 +1,21 @@
+import { useState, useEffect } from 'react';
+import styles from './table.module.css';
 import Day from '../Day';
 
 const MeetingTable = ({calendar, openModal}) => {
+    const [dayNames, setDayNames] = useState([]);
+
+    useEffect(() => {
+        const tmp = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+        setDayNames(tmp);
+    }, []);
 
     return (
-        <table>
+        <table className={styles.table}>
             <tbody>
                 <tr>
-                    <th>SUN</th>
-                    <th>MON</th>
-                    <th>TUE</th>
-                    <th>WED</th>
-                    <th>THU</th>
-                    <th>FRI</th>
-                    <th>SAT</th>
+                    { dayNames.map((day, dayId) => 
+                    <th key={dayId} className={styles.element}>{day}</th>)}
                 </tr>
                {
                 calendar?.map((itemWeek, weekId) => {
