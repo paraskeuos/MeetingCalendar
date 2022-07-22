@@ -8,14 +8,13 @@ const Calendar = () => {
     const [monthName, setMonthName] = useState('');
     const [month, setMonth] = useState(0);
     const [year, setYear] = useState(0);
+
+    const [gapDays, setGapDays] = useState(0);
     const [daysInMonth, setDaysInMonth] = useState(0);
+
     const [calendar, setCalendar] = useState([]);
     const [participants, setParticipants] = useState([]);
 
-    const [gapDays, setGapDays] = useState(0);
-    const [gapDaysZero, setGapDaysZero] = useState(false);
-    const [gapDaysNonZero, setGapDaysNonZero] = useState(false);
-    
     const [showModal, setShowModal] = useState(false);
     const [chosenDay, setChosenDay] = useState(0);
 
@@ -26,33 +25,24 @@ const Calendar = () => {
 
         const date = new Date();
         setMonthName(date.toLocaleString('default', { month: 'long' }));
-        setMonth(date.getMonth());
-        setYear(1900 + date.getYear());
+        
+        const month = date.getMonth();
+        setMonth(month);
+        const year = 1900 + date.getYear();
+        setYear(year);
 
         date.setDate(1);
-        const gapTmp = date.getDay();
-        if(!gapTmp) {
-            setGapDaysZero(true);
-        } else {
-            setGapDays(gapTmp);
-            setGapDaysNonZero(true);
-        }
+        const gapDays = date.getDay();
+        setGapDays(gapDays);
 
-        setDaysInMonth(getNumberOfDaysInMonth(month));
+        const daysInMonth = getNumberOfDaysInMonth(month, year);
+        setDaysInMonth(daysInMonth);
+
+        initCalendar(gapDays, daysInMonth);
         
     }, []);
-    
-    useEffect(() => initCalendar(), 
-        [daysInMonth, gapDays, gapDaysZero, gapDaysNonZero]);
 
-    const initCalendar = () => {
-        const gapDaysReady = gapDaysZero || gapDaysNonZero;
-        if(!daysInMonth || !gapDaysReady) {
-            return;
-        }
-        if(gapDaysNonZero && !gapDays) {
-            return;
-        }
+    const initCalendar = (gapDays, daysInMonth) => {
         
         const tmp = [[]];
         let daysPerTableRow = 1;
@@ -111,7 +101,7 @@ const Calendar = () => {
 
     }
 
-    const getNumberOfDaysInMonth = month => {
+    const getNumberOfDaysInMonth = (month, year) => {
         switch(month) {
             case 0:
             case 2:
@@ -151,7 +141,7 @@ const Calendar = () => {
         setShowModal(false);
 
         if(addedMeeting) {
-            initCalendar();
+            initCalendar(gapDays, daysInMonth);
         }
     };
 
